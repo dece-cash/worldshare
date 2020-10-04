@@ -80,7 +80,21 @@ export async function convertShotAddress(shotAddress:string){
 //     return bytes;
 // }
 
+export function formatDate(d:number) {
+    return new Date(d).toLocaleDateString()
+}
 
+export function toType(v:number) {
+    if(v==0){
+        return "RECOMMEND"
+    }else if(v==1){
+        return "SUPPORT"
+    }else if(v==2){
+        return "BOOSTER"
+    }else if(v==3){
+        return "ROLL-UP"
+    }
+}
 
 export function isPKr(address:string){
     const b = bs58.decode(address);

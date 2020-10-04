@@ -67,3 +67,8 @@ h1{
     font-size: 16px;
     font-weight: 600;
 }
+
+.modal-max-height{
+    max-height: 50vh;
+    overflow-y: scroll;
+}

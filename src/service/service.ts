@@ -14,9 +14,11 @@ export interface Account {
 class Service {
 
     id:number
+    logRpc:string
 
     constructor(){
         this.id = 0;
+        this.logRpc = "https://event.dece.cash";
     }
 
     async rpc(method:string, args:any){
@@ -40,7 +42,7 @@ class Service {
                     }else if(resp.data && resp.data.result){
                         resolve(resp.data.result)
                     }
-                }).catch(e => {
+                }).catch((e:any) => {
                     reject(e)
                 })
             }
@@ -131,6 +133,63 @@ class Service {
             that.rpc("dece_getTransactionReceipt",[hash]).then((rest:any)=>{
                 resolve(rest)
             }).catch(e=>{
+                reject(e)
+            })
+        })
+    }
+
+    async getAvatarLogs(id:number){
+        return new Promise((resolve, reject)=>{
+            const data: any = {
+                id: this.id++,
+                method: "share_getAvatarLog",
+                params: [id]
+            }
+            axios.post(this.logRpc, data).then((resp: any) => {
+                if(resp.data && resp.data.error){
+                    reject(resp.data.error.message)
+                }else if(resp.data){
+                    resolve(resp.data.result)
+                }
+            }).catch((e:any) => {
+                reject(e)
+            })
+        })
+    }
+
+    async getProfitLogs(id:number){
+        return new Promise((resolve, reject)=>{
+            const data: any = {
+                id: this.id++,
+                method: "share_getProfitLog",
+                params: [id]
+            }
+            axios.post(this.logRpc, data).then((resp: any) => {
+                if(resp.data && resp.data.error){
+                    reject(resp.data.error.message)
+                }else if(resp.data){
+                    resolve(resp.data.result)
+                }
+            }).catch((e:any) => {
+                reject(e)
+            })
+        })
+    }
+
+    async getGenerationLogs(id:number){
+        return new Promise((resolve, reject)=>{
+            const data: any = {
+                id: this.id++,
+                method: "share_getGenerationLog",
+                params: [id]
+            }
+            axios.post(this.logRpc, data).then((resp: any) => {
+                if(resp.data && resp.data.error){
+                    reject(resp.data.error.message)
+                }else if(resp.data){
+                    resolve(resp.data.result)
+                }
+            }).catch((e:any) => {
                 reject(e)
             })
         })

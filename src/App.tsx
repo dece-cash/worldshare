@@ -56,6 +56,10 @@ export interface State {
     investAmount?:string|number
     spining:boolean
     showChart:boolean
+
+    profitLogs?:any
+    avatarLogs?:any
+    generationLogs?:any
 }
 
 class App extends React.Component<any,State> {
@@ -294,18 +298,38 @@ class App extends React.Component<any,State> {
         })
     }
     setShowAvatarListModal = (f:boolean)=>{
-        const {visible} = this.state;
+        const {visible,detail} = this.state;
         visible.avatarList = f;
-        this.setState({
-            visible:visible
-        })
+        if(f){
+            service.getAvatarLogs(detail ? detail.ID:0).then((rest:any)=>{
+                this.setState({
+                    visible:visible,
+                    avatarLogs:rest
+                })
+            })
+        }else{
+            this.setState({
+                visible:visible,
+            })
+        }
     }
     setShowGenerationListModal = (f:boolean)=>{
-        const {visible} = this.state;
+        const {visible,detail} = this.state;
         visible.generationList = f;
-        this.setState({
-            visible:visible
-        })
+        if(f){
+            service.getGenerationLogs(detail ? detail.ID*2:0).then((restA:any)=>{
+                service.getGenerationLogs(detail ? detail.ID*2+1:0).then((restB:any)=>{
+                    this.setState({
+                        visible:visible,
+                        generationLogs:[restA,restB]
+                    })
+                })
+            })
+        }else{
+            this.setState({
+                visible:visible,
+            })
+        }
     }
     setShowOrganizationModal = (f:boolean)=>{
         const {visible} = this.state;
@@ -315,11 +339,21 @@ class App extends React.Component<any,State> {
         })
     }
     setShowListOfProfitModal = (f:boolean)=>{
-        const {visible} = this.state;
+        const {visible,detail} = this.state;
         visible.listOfProfit = f;
-        this.setState({
-            visible:visible
-        })
+        if(f){
+            service.getProfitLogs(detail ? detail.ID:0).then((rest:any)=>{
+                this.setState({
+                    visible:visible,
+                    profitLogs:rest?rest.reverse():rest
+                })
+            })
+        }else{
+            this.setState({
+                visible:visible,
+            })
+        }
+
     }
 
     setReferCode = (v:any)=>{
@@ -347,7 +381,7 @@ class App extends React.Component<any,State> {
 
     render() {
 
-        const {visible,accounts,account,detail,selectLevel,spining,referCode,showChart} = this.state;
+        const {visible,accounts,account,detail,selectLevel,spining,referCode,showChart,profitLogs,avatarLogs,generationLogs} = this.state;
 
         // selectLevel = detail && detail.ID? detail.player.level:selectLevel;
         const optionsLevelsTmp:Array<any>=[];
@@ -379,7 +413,7 @@ class App extends React.Component<any,State> {
             }
         ];
 
-        const percent = detail&&detail.ID ? parseFloat(detail.player.returnValue.dividedBy(detail.player.value.plus(detail.player.avatarValue).multipliedBy(levelMul[detail.player.level-1])).multipliedBy(100).toFixed(2)):0;
+        const percent = detail&&detail.ID ? parseFloat(detail.player.returnValue.dividedBy(detail.player.value.multipliedBy(levelMul[detail.player.level-1]).plus(detail.player.avatarValue)).multipliedBy(100).toFixed(2)):0;
 
 
         return <>
@@ -442,7 +476,7 @@ class App extends React.Component<any,State> {
                             <Row>
                                 <Col span={12} className="text-center">
                                     <Descriptions column={1}>
-                                        <Descriptions.Item><Statistic title={i18n.t("profitPool")} value={detail && detail.ID ?detail.player.value.plus(detail.player.avatarValue).multipliedBy(levelMul[detail.player.level-1]).toNumber():0} precision={3} /></Descriptions.Item>
+                                        <Descriptions.Item><Statistic title={i18n.t("profitPool")} value={detail && detail.ID ?detail.player.value.multipliedBy(levelMul[detail.player.level-1]).plus(detail.player.avatarValue).toNumber():0} precision={3} /></Descriptions.Item>
                                         <Descriptions.Item>{""}</Descriptions.Item>
                                     </Descriptions>
                                 </Col>
@@ -467,19 +501,17 @@ class App extends React.Component<any,State> {
                                     <Button type="primary" block onClick={()=>{this.setShowCreateAvatarModal(true)}} disabled={!(detail && detail.idLeft)}>{i18n.t("createAvatar")}</Button>
                                 </Col>
                             </Row>
-
-
-                            {/*<Divider dashed/>*/}
-                            {/*<Row>*/}
-                            {/*    <Col span={24} className="text-center">*/}
-                            {/*        <Descriptions title="" column={2}>*/}
-                            {/*            <Descriptions.Item><Button type="primary" block size="small" onClick={()=>{this.setShowAvatarListModal(true)}}>AVATAR LIST</Button></Descriptions.Item>*/}
-                            {/*            <Descriptions.Item><Button type="primary" block size="small" onClick={()=>{this.setShowGenerationListModal(true)}}>GENERATION 1 LIST</Button></Descriptions.Item>*/}
-                            {/*            <Descriptions.Item><Button type="primary" block size="small" onClick={()=>{this.setShowOrganizationModal(true)}}>ORGANIZATION CHART</Button></Descriptions.Item>*/}
-                            {/*            <Descriptions.Item><Button type="primary" block size="small" onClick={()=>{this.setShowListOfProfitModal(true)}}>LIST OF PROFIT</Button></Descriptions.Item>*/}
-                            {/*        </Descriptions>*/}
-                            {/*    </Col>*/}
-                            {/*</Row>*/}
+                            <Divider dashed/>
+                            <Row>
+                                <Col span={24} className="text-center">
+                                    <Descriptions title="" column={2}>
+                                        <Descriptions.Item><Button type="primary" block size="small" onClick={()=>{this.setShowAvatarListModal(true)}}>AVATAR LIST</Button></Descriptions.Item>
+                                        <Descriptions.Item><Button type="primary" block size="small" onClick={()=>{this.setShowGenerationListModal(true)}}>GENERATION 1 LIST</Button></Descriptions.Item>
+                                        {/*<Descriptions.Item><Button type="primary" block size="small" onClick={()=>{this.setShowOrganizationModal(true)}}>ORGANIZATION CHART</Button></Descriptions.Item>*/}
+                                        <Descriptions.Item><Button type="primary" block size="small" onClick={()=>{this.setShowListOfProfitModal(true)}}>LIST OF PROFIT</Button></Descriptions.Item>
+                                    </Descriptions>
+                                </Col>
+                            </Row>
                             <Divider dashed/>
                             <Row>
                                 <Col span={24} className="text-center">
@@ -658,27 +690,71 @@ class App extends React.Component<any,State> {
 
                         <Modal
                             visible={visible.avatarList}
-                            title="View Package Level"
+                            title="AVATAR LIST"
                             footer={[]}
                             closable
                             onCancel={()=>this.setShowAvatarListModal(false)}
                             maskClosable
                         >
-                            <div>
-                                avatarList
+                            <div className="text-center modal-max-height">
+                                <Row>
+                                    <Col span={8}>LEVEL</Col><Col span={8}>REFER ID</Col><Col span={8}>CREATE DATE</Col>
+                                </Row>
+                                <Divider/>
+                                {avatarLogs && avatarLogs.length>0 && avatarLogs.map((v:any)=>{
+                                    return <div>
+                                        <Row>
+                                            <Col span={8}>{v.level}</Col><Col span={8}>{v.refferid}</Col><Col span={8}>{utils.formatDate(v.CreateDate*1000)}</Col>
+                                        </Row>
+                                        <Divider dashed/>
+                                    </div>
+                                })}
                             </div>
                         </Modal>
 
                         <Modal
                             visible={visible.generationList}
-                            title="View Package Level"
+                            title="GENERATION LIST"
                             footer={[]}
                             closable
                             onCancel={()=>this.setShowGenerationListModal(false)}
                             maskClosable
                         >
-                            <div>
-                                generationList
+                            <div className="text-center modal-max-height">
+                                <Row>
+                                    <Col span={12}>
+                                        LEFT<br/>{detail && detail.idLeft}
+                                    </Col>
+                                    <Col span={12}>
+                                        RIGHT<br/>{detail && detail.idRight}
+                                    </Col>
+                                </Row>
+                                <Divider/>
+                                <Row>
+                                    <Col span={10}>
+                                        {
+                                            generationLogs&&generationLogs.length>0&&generationLogs[0]&&generationLogs[0].map((v:any,index:number)=>{
+                                                return <div className="text-center">
+                                                    ID A-{v.id}
+                                                    </div>
+                                            })
+                                        }
+                                    </Col>
+                                    <Col span={2}>
+                                        <Divider type="vertical"/>
+                                    </Col>
+
+                                    <Col span={10}>
+                                        {
+                                            generationLogs&&generationLogs.length>0&&generationLogs[1]&&generationLogs[1].map((v:any,index:number)=>{
+                                                return <div className="text-center">
+                                                    ID B-{v.code}
+                                                </div>
+                                            })
+                                        }
+                                    </Col>
+                                </Row>
+
                             </div>
                         </Modal>
 
@@ -697,14 +773,26 @@ class App extends React.Component<any,State> {
 
                         <Modal
                             visible={visible.listOfProfit}
-                            title="View Package Level"
+                            title="PROFIT LIST"
                             footer={[]}
                             closable
                             onCancel={()=>this.setShowListOfProfitModal(false)}
                             maskClosable
                         >
-                            <div>
-                                listOfProfit
+                            <div className="text-center modal-max-height">
+                                <Row>
+                                    <Col span={3}>ID</Col><Col span={9}>Type</Col><Col span={8}>Value</Col><Col span={4}>Block</Col>
+                                </Row>
+                                <Divider/>
+                                {profitLogs && profitLogs.length>0 && profitLogs.map((v:any,index:number)=>{
+                                    return <div>
+                                            <Row>
+                                                <Col span={3}>{index+1}</Col><Col span={9}>{utils.toType(v.ptype)}</Col><Col span={8}>{utils.fromValue(v.value,18).toFixed(3,1)}</Col><Col span={4}>{new BigNumber(v.raw.blockNumber).toNumber()}</Col>
+                                            </Row>
+                                            <Divider dashed/>
+                                        </div>
+
+                                })}
                             </div>
                         </Modal>
 
