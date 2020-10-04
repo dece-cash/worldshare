@@ -748,7 +748,7 @@ class App extends React.Component<any,State> {
                                         {
                                             generationLogs&&generationLogs.length>0&&generationLogs[1]&&generationLogs[1].map((v:any,index:number)=>{
                                                 return <div className="text-center">
-                                                    ID B-{v.code}
+                                                    ID B-{v.id}
                                                 </div>
                                             })
                                         }
