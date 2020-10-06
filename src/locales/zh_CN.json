@@ -29,5 +29,18 @@
   "selectLevel": "选择LEVEL",
   "necessary": "预计",
   "available": "可用",
-  "myPackage": "我的PACKAGE"
+  "myPackage": "我的PACKAGE",
+
+  "overflow":"溢出收益",
+  "avatarList": "分身列表",
+  "generation1List": "一代推荐人列表",
+  "listOfProfit": "收益列表",
+  "createDate": "创建时间",
+  "left": "左推荐码",
+  "right": "右推荐码",
+  "type": "类型",
+  "block": "块号",
+  "actualProfit": "实际收益",
+  "expectedProfit": "理论收益"
+
 }

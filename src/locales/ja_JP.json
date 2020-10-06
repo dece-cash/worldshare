@@ -29,5 +29,17 @@
   "selectLevel": "LEVEL 選択",
   "necessary": "要",
   "available": "使用可能",
-  "myPackage": "MY PACKAGE"
+  "myPackage": "MY PACKAGE",
+
+  "overflow":"オーバーフロー収益",
+  "avatarList": "代役一覧",
+  "generation1List": "世代の一覧",
+  "listOfProfit": "LIST OF PROFIT",
+  "createDate": "創建時期",
+  "left": "左",
+  "right": "右",
+  "type": "タイプ",
+  "block": "ブロック番号",
+  "actualProfit": "実収益",
+  "expectedProfit": "期待収益"
 }

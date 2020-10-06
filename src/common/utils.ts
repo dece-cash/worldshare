@@ -93,6 +93,8 @@ export function toType(v:number) {
         return "BOOSTER"
     }else if(v==3){
         return "ROLL-UP"
+    }else if(v==4){
+        return "OVERFLOW"
     }
 }
 

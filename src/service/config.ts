@@ -1,4 +1,4 @@
-export const address:string = "5db8FmmU9M9vvYBmSDXa4KkkMpBBvvjeweAM8Ep7RQgQzLESwFp6S9mc8SMExzLWv3YMF3J1KVFLreTXGsfb8yHh"
+export const address:string = "3wzn3XazZLjFsyLzXo4SWA5ULJiqTiBnNbTCjE4jYvudYCEFmphJJVeWncf3vKYxHZ2nfAFfWQZLNyiZJDoEcEJ"
 
 export const abi:any = [
     {
@@ -97,6 +97,11 @@ export const abi:any = [
                             {
                                 "internalType": "uint256",
                                 "name": "avatarValue",
+                                "type": "uint256"
+                            },
+                            {
+                                "internalType": "uint256",
+                                "name": "overflowValue",
                                 "type": "uint256"
                             }
                         ],

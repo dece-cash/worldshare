@@ -29,5 +29,17 @@
   "selectLevel": "레벨 선택",
   "necessary": "필요",
   "available": "사용 가능",
-  "myPackage": "내 패키지"
+  "myPackage": "내 패키지",
+
+  "overflow":"스필 어프로치",
+  "avatarList": "스턴트맨 목록",
+  "generation1List": "새 목록",
+  "listOfProfit": "수익 목록",
+  "createDate": "만든 날짜",
+  "left": "왼쪽",
+  "right": "오른쪽",
+  "type": "유형",
+  "block": "블록 번호",
+  "actualProfit": "실질적 수익",
+  "expectedProfit": "기대수익률"
 }

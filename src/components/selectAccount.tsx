@@ -3,6 +3,7 @@ import * as React from 'react';
 import {Modal,List}  from 'antd'
 import {Account} from '../service/service'
 import * as utils from '../common/utils'
+import i18n from "../i18n";
 
 interface Props {
     visible:boolean
@@ -24,7 +25,7 @@ class SelectAccount extends React.Component<any,Props> {
         return (
             <Modal
             visible={this.props.visible}
-            title="SWITCH ACCOUNT"
+            title={i18n.t("switch")}
             footer={[]}
             closable
             onCancel={this.props.onCancel}

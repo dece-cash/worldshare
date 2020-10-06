@@ -33,6 +33,7 @@ export interface Player {
     otherAchievement:BigNumber;
 
     avatarValue:BigNumber;
+    overflowValue:BigNumber;
 }
 
 export interface Detail {
@@ -82,6 +83,7 @@ class Contract {
                 otherAchievement:utils.fromValue(rest[0][6][10],18),
 
                 avatarValue:utils.fromValue(rest[0][6][11],18),
+                overflowValue:utils.fromValue(rest[0][6][12],18),
             },
             reffer:rest[0][7],
         }

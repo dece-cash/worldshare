@@ -19,7 +19,9 @@ class Service {
     constructor(){
         this.id = 0;
         this.logRpc = "https://event.dece.cash";
+        // this.logRpc = "http://13.124.240.238:8009";
     }
+
 
     async rpc(method:string, args:any){
         let host = localStorage.getItem("host");

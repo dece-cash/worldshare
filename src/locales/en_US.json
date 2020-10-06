@@ -29,5 +29,19 @@
   "selectLevel": "SELECT LEVEL",
   "necessary": "NECESSARY",
   "available": "AVAILABLE",
-  "myPackage": "MY PACKAGE"
+  "myPackage": "MY PACKAGE",
+
+  "overflow":"OVERFLOW VOLUME",
+  "avatarList": "AVATAR LIST",
+  "generation1List": "GENERATION 1 LIST",
+  "listOfProfit": "LIST OF PROFIT",
+  "createDate": "CREATE DATE",
+  "left": "LEFT",
+  "right": "RIGHT",
+  "type": "TYPE",
+  "block": "BLOCK",
+  "actualProfit": "ACTUAL PROFIT",
+  "expectedProfit": "EXPECTED PROFIT",
+
+  "copy": "COPY"
 }

@@ -39,9 +39,9 @@ interface Visible {
     listOfProfit:boolean
 }
 const optionsLevels  = [
-    { label: 'Level 1', value: 0, disabled: false},
-    { label: 'Level 2', value: 1, disabled: false},
-    { label: 'Level 3', value: 2, disabled: false },
+    { label: 'LEVEL 1', value: 0, disabled: false},
+    { label: 'LEVEL 2', value: 1, disabled: false},
+    { label: 'LEVEL 3', value: 2, disabled: false },
     { label: 'Level 4', value: 3, disabled: false },
     { label: 'Level 5', value: 4, disabled: false },
 ]
@@ -495,6 +495,11 @@ class App extends React.Component<any,State> {
                                     {showChart?<WaterWave height={200} title={i18n.t("returnedPoint")} percent={percent} />:<Spin style={{height:200}} spinning={true} tip="loading..."></Spin>}
                                 </Col>
                             </Row>
+                            <Row>
+                                <Col span={24} className="text-center">
+                                    <Statistic title={i18n.t("overflow")} value={detail&&detail.player.overflowValue.toNumber()} precision={3} />
+                                </Col>
+                            </Row>
                             <Divider dashed/>
                             <Row>
                                 <Col span={24} className="text-center">
@@ -505,10 +510,10 @@ class App extends React.Component<any,State> {
                             <Row>
                                 <Col span={24} className="text-center">
                                     <Descriptions title="" column={2}>
-                                        <Descriptions.Item><Button type="primary" block size="small" onClick={()=>{this.setShowAvatarListModal(true)}}>AVATAR LIST</Button></Descriptions.Item>
-                                        <Descriptions.Item><Button type="primary" block size="small" onClick={()=>{this.setShowGenerationListModal(true)}}>GENERATION 1 LIST</Button></Descriptions.Item>
+                                        <Descriptions.Item><Button type="primary" block size="small" onClick={()=>{this.setShowAvatarListModal(true)}}>{i18n.t("avatarList")}</Button></Descriptions.Item>
+                                        <Descriptions.Item><Button type="primary" block size="small" onClick={()=>{this.setShowGenerationListModal(true)}}>{i18n.t("generation1List")}</Button></Descriptions.Item>
                                         {/*<Descriptions.Item><Button type="primary" block size="small" onClick={()=>{this.setShowOrganizationModal(true)}}>ORGANIZATION CHART</Button></Descriptions.Item>*/}
-                                        <Descriptions.Item><Button type="primary" block size="small" onClick={()=>{this.setShowListOfProfitModal(true)}}>LIST OF PROFIT</Button></Descriptions.Item>
+                                        <Descriptions.Item><Button type="primary" block size="small" onClick={()=>{this.setShowListOfProfitModal(true)}}>{i18n.t("listOfProfit")}</Button></Descriptions.Item>
                                     </Descriptions>
                                 </Col>
                             </Row>
@@ -593,18 +598,28 @@ class App extends React.Component<any,State> {
                         >
                             <div className="text-center">
                                 <Descriptions column={1}>
-                                    <Descriptions.Item label="" className="level-border"><Statistic title="Level 1" value={levels[0]} precision={0} suffix={"DKRW"}/></Descriptions.Item>
-                                    <Descriptions.Item label="" className="level-border"><Statistic title="Level 2" value={levels[1]} precision={0} suffix={"DKRW"}/></Descriptions.Item>
-                                    <Descriptions.Item label="" className="level-border"><Statistic title="Level 3" value={levels[2]} precision={0} suffix={"DKRW"}/></Descriptions.Item>
-                                    <Descriptions.Item label="" className="level-border"><Statistic title="Level 4" value={levels[3]} precision={0} suffix={"DKRW"}/></Descriptions.Item>
-                                    <Descriptions.Item label="" className="level-border"><Statistic title="Level 5" value={levels[4]} precision={0} suffix={"DKRW"}/></Descriptions.Item>
+                                    {[0,1,2,3,4].map((v,i)=>{
+                                        return <Descriptions.Item label="" className="level-border">
+                                            <Row className="text-center">
+                                                <Col span={6} style={{textAlign:'right'}}>
+                                                    <div className="text-center">{i+1}LP<br/>($100)</div>
+                                                </Col>
+                                                <Col  span={4} style={{padding:'6px'}}>
+                                                    =>
+                                                </Col>
+                                                <Col  span={14} style={{textAlign:'left'}}>
+                                                    <Statistic title="" value={levels[i]} precision={0} suffix={"DKRW"}/>
+                                                </Col>
+                                            </Row>
+                                        </Descriptions.Item>
+                                    })}
                                 </Descriptions>
                             </div>
                         </Modal>
 
                         <Modal
                             visible={visible.buyLevel}
-                            title={(detail && detail.ID)?"PACKAGE LEVEL UP":"BUY PACKAGE LEVEL"}
+                            title={(detail && detail.ID)?i18n.t("levelUp"):i18n.t("buy")}
                             footer={[]}
                             closable
                             onCancel={()=>this.setShowBuyModal(false)}
@@ -612,12 +627,12 @@ class App extends React.Component<any,State> {
                         >
                             <div>
                                 <Row>
-                                    <Col span={9}>REFER ID</Col>
+                                    <Col span={9}>{i18n.t("referId")}</Col>
                                     <Col span={15}><Input type="text" onChange={(e)=>this.setReferCode(e.target.value)} autoFocus={!(detail && detail.reffer)} disabled={!!(detail && detail.reffer)} value={detail && detail.reffer?detail.reffer:referCode} onBlur={(e)=>this.setReferCode(e.target.value)} /></Col>
                                 </Row>
                                 <Divider dashed/>
                                 <Row>
-                                    <Col span={9}>Select Level</Col>
+                                    <Col span={9}>{i18n.t("selectLevel")}</Col>
                                     <Col span={15}>
                                         <Radio.Group
                                             options={optionsLevelsTmp}
@@ -630,12 +645,12 @@ class App extends React.Component<any,State> {
                                 </Row>
                                 <Divider dashed/>
                                 <Row>
-                                    <Col span={9}>NECESSARY QUANTITY</Col>
+                                    <Col span={9}>{i18n.t("necessary")}</Col>
                                     <Col span={15}><Statistic title="" value={selectLevel?levels[selectLevel]-(detail && detail.ID ? detail.player.value.toNumber():0):levels[0]} precision={0} suffix={"DKRW"}/></Col>
                                 </Row>
                                 <Divider dashed/>
                                 <Row>
-                                    <Col span={9}>AVAILABLE QUANTITY</Col>
+                                    <Col span={9}>{i18n.t("available")}</Col>
                                     <Col span={15}><Statistic title="" value={this.getBalanceNumber("DKRW")} precision={3} suffix={"DKRW"}/></Col>
                                 </Row>
                                 <Divider dashed/>
@@ -643,7 +658,7 @@ class App extends React.Component<any,State> {
                                     <Col span={24}>
                                         <Button block type="primary" onClick={()=>{
                                             this.register();
-                                        }}>{(detail && detail.ID)?"LEVEL UP":"BUY"}</Button>
+                                        }}>{(detail && detail.ID)?i18n.t("levelUp"):i18n.t("buy")}</Button>
                                     </Col>
                                 </Row>
                             </div>
@@ -651,7 +666,7 @@ class App extends React.Component<any,State> {
 
                         <Modal
                             visible={visible.createAvatar}
-                            title="CREATE AVATAR PACKAGE"
+                            title={i18n.t("createAvatar")}
                             footer={[]}
                             closable
                             onCancel={()=>this.setShowCreateAvatarModal(false)}
@@ -660,7 +675,7 @@ class App extends React.Component<any,State> {
                             <div>
                                 <Row className="text-center">
                                     <Col span={24}>
-                                        <Descriptions title="MY AVATAR PACKAGE" column={1}>
+                                        <Descriptions title={i18n.t("myPackage")} column={1}>
                                             <Descriptions.Item label="">
                                                 <span className="level-font">LEVEL {detail && detail.player.level}</span>
                                             </Descriptions.Item>
@@ -669,12 +684,12 @@ class App extends React.Component<any,State> {
                                 </Row>
                                 <Divider dashed/>
                                 <Row>
-                                    <Col span={9}>NECESSARY QUANTITY</Col>
+                                    <Col span={9}>{i18n.t("necessary")}</Col>
                                     <Col span={15}><Statistic title="" value={detail && detail.ID?levels[detail.player.level-1]:levels[0]} precision={0} suffix={"DKRW"}/></Col>
                                 </Row>
                                 <Divider dashed/>
                                 <Row>
-                                    <Col span={9}>AVAILABLE QUANTITY</Col>
+                                    <Col span={9}>{i18n.t("available")}</Col>
                                     <Col span={15}><Statistic title="" value={this.getBalanceNumber("DKRW")} precision={3} suffix={"DKRW"}/></Col>
                                 </Row>
                                 <Divider dashed/>
@@ -682,7 +697,7 @@ class App extends React.Component<any,State> {
                                     <Col span={24}>
                                         <Button block type="primary" onClick={()=>{
                                             this.createAvatar();
-                                        }}>CREATE AVATAR</Button>
+                                        }}>{i18n.t("createAvatar")}</Button>
                                     </Col>
                                 </Row>
                             </div>
@@ -690,7 +705,7 @@ class App extends React.Component<any,State> {
 
                         <Modal
                             visible={visible.avatarList}
-                            title="AVATAR LIST"
+                            title={i18n.t("avatarList")}
                             footer={[]}
                             closable
                             onCancel={()=>this.setShowAvatarListModal(false)}
@@ -698,13 +713,17 @@ class App extends React.Component<any,State> {
                         >
                             <div className="text-center modal-max-height">
                                 <Row>
-                                    <Col span={8}>LEVEL</Col><Col span={8}>REFER ID</Col><Col span={8}>CREATE DATE</Col>
+                                    <Col span={8}>{i18n.t("level")}</Col>
+                                    <Col span={8}>{i18n.t("referId")}</Col>
+                                    <Col span={8}>{i18n.t("createDate")}</Col>
                                 </Row>
                                 <Divider/>
                                 {avatarLogs && avatarLogs.length>0 && avatarLogs.map((v:any)=>{
                                     return <div>
                                         <Row>
-                                            <Col span={8}>{v.level}</Col><Col span={8}>{v.refferid}</Col><Col span={8}>{utils.formatDate(v.CreateDate*1000)}</Col>
+                                            <Col span={8}>{v.level}</Col>
+                                            <Col span={8}>{v.refferid}</Col>
+                                            <Col span={8}>{utils.formatDate(v.CreateDate*1000)}</Col>
                                         </Row>
                                         <Divider dashed/>
                                     </div>
@@ -714,7 +733,7 @@ class App extends React.Component<any,State> {
 
                         <Modal
                             visible={visible.generationList}
-                            title="GENERATION LIST"
+                            title={i18n.t("generation1List")}
                             footer={[]}
                             closable
                             onCancel={()=>this.setShowGenerationListModal(false)}
@@ -723,10 +742,10 @@ class App extends React.Component<any,State> {
                             <div className="text-center modal-max-height">
                                 <Row>
                                     <Col span={12}>
-                                        LEFT<br/>{detail && detail.idLeft}
+                                        {i18n.t("left")}<br/>{detail && detail.idLeft}
                                     </Col>
                                     <Col span={12}>
-                                        RIGHT<br/>{detail && detail.idRight}
+                                        {i18n.t("right")}<br/>{detail && detail.idRight}
                                     </Col>
                                 </Row>
                                 <Divider/>
@@ -735,7 +754,7 @@ class App extends React.Component<any,State> {
                                         {
                                             generationLogs&&generationLogs.length>0&&generationLogs[0]&&generationLogs[0].map((v:any,index:number)=>{
                                                 return <div className="text-center">
-                                                    ID A-{v.id}
+                                                    ID A-{v.codea}
                                                     </div>
                                             })
                                         }
@@ -748,7 +767,7 @@ class App extends React.Component<any,State> {
                                         {
                                             generationLogs&&generationLogs.length>0&&generationLogs[1]&&generationLogs[1].map((v:any,index:number)=>{
                                                 return <div className="text-center">
-                                                    ID B-{v.id}
+                                                    ID B-{v.codeb}
                                                 </div>
                                             })
                                         }
@@ -773,7 +792,7 @@ class App extends React.Component<any,State> {
 
                         <Modal
                             visible={visible.listOfProfit}
-                            title="PROFIT LIST"
+                            title={i18n.t("listOfProfit")}
                             footer={[]}
                             closable
                             onCancel={()=>this.setShowListOfProfitModal(false)}
@@ -781,13 +800,21 @@ class App extends React.Component<any,State> {
                         >
                             <div className="text-center modal-max-height">
                                 <Row>
-                                    <Col span={3}>ID</Col><Col span={9}>Type</Col><Col span={8}>Value</Col><Col span={4}>Block</Col>
+                                    <Col span={2}>ID</Col>
+                                    <Col span={6}>{i18n.t("type")}</Col>
+                                    <Col span={4}>{i18n.t("block")}</Col>
+                                    <Col span={6}>{i18n.t("actualProfit")}</Col>
+                                    <Col span={6}>{i18n.t("expectedProfit")}</Col>
                                 </Row>
                                 <Divider/>
                                 {profitLogs && profitLogs.length>0 && profitLogs.map((v:any,index:number)=>{
                                     return <div>
                                             <Row>
-                                                <Col span={3}>{index+1}</Col><Col span={9}>{utils.toType(v.ptype)}</Col><Col span={8}>{utils.fromValue(v.value,18).toFixed(3,1)}</Col><Col span={4}>{new BigNumber(v.raw.blockNumber).toNumber()}</Col>
+                                                <Col span={2}>{index+1}</Col>
+                                                <Col span={6}>{utils.toType(v.ptype)}</Col>
+                                                <Col span={4}>{new BigNumber(v.raw.blockNumber).toNumber()}</Col>
+                                                <Col span={6}>{utils.fromValue(v.value,18).toFixed(3,1)}</Col>
+                                                <Col span={6}>{utils.fromValue(v.profit,18).toFixed(3,1)}</Col>
                                             </Row>
                                             <Divider dashed/>
                                         </div>
