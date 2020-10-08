@@ -598,11 +598,11 @@ class App extends React.Component<any,State> {
                         >
                             <div className="text-center">
                                 <Descriptions column={1}>
-                                    {[0,1,2,3,4].map((v,i)=>{
+                                    {[100,300,1000,3000,10000].map((v,i)=>{
                                         return <Descriptions.Item label="" className="level-border">
                                             <Row className="text-center">
                                                 <Col span={6} style={{textAlign:'right'}}>
-                                                    <div className="text-center">{i+1}LP<br/>($100)</div>
+                                                    <div className="text-center">{i+1}LP<br/>(${v})</div>
                                                 </Col>
                                                 <Col  span={4} style={{padding:'6px'}}>
                                                     =>
