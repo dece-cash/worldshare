@@ -22,8 +22,8 @@ const QRCode = require('qrcode')
 function callback(key: any) {
     console.log(key);
 }
-// const levels:Array<number> = [120000,360000,1200000,3600000,12000000];
-const levels:Array<number> = [12,36,120,360,1200];
+const levels:Array<number> = [120000,360000,1200000,3600000,12000000];
+// const levels:Array<number> = [12,36,120,360,1200];
 const levelMul = [3,4,5,5,5]
 
 interface Visible {
