@@ -390,6 +390,14 @@ class App extends React.Component<any,State> {
         }
     }
 
+    showAccountSelect = ()=>{
+        const {visible} = this.state;
+        this.getAccountList().then(()=>{
+            visible.account = true;
+            this.setState({visible:visible})
+        })
+    }
+
     render() {
 
         const {visible,accounts,account,detail,selectLevel,spining,referCode,showChart,profitLogs,avatarLogs,generationLogs} = this.state;
@@ -442,7 +450,9 @@ class App extends React.Component<any,State> {
                                     {account.name} ({utils.ellipsis(account.mainPKr)})
                                 </Col>
                                 <Col span={6}>
-                                    <Button type="primary" size="small" onClick={()=>{visible.account = true;this.setState({visible:visible})}}>{i18n.t("switch")}</Button>
+                                    <Button type="primary" size="small" onClick={()=>{
+                                        this.showAccountSelect();
+                                    }}>{i18n.t("switch")}</Button>
                                 </Col>
                             </Row>
                             <Divider dashed/>
