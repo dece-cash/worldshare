@@ -131,7 +131,7 @@ class App extends React.Component<any,State> {
             }
             // message.info("t4");
             return new Promise(resolve => {
-                Promise.resolve(ret)
+                resolve(ret)
             })
         }catch (e){
             return Promise.reject(e)
