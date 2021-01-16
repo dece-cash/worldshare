@@ -96,13 +96,14 @@ class App extends React.Component<any,State> {
         if(pk){
             const act:Account = await service.accountDetail(pk)
             if(act && act.mainPKr){
-                message.info(act.mainPKr);
+                message.info("t1");
                 ret = act;
                 this.setState({
                     account:act,
                     accounts:_accounts
                 })
             }else{
+                message.info("t2");
                 localStorage.removeItem("actPK");
                 if(_accounts && _accounts.length>0){
                     ret = _accounts[0];
@@ -115,6 +116,7 @@ class App extends React.Component<any,State> {
             }
         }else{
             if(_accounts && _accounts.length>0){
+                message.info("t3");
                 ret = _accounts[0];
                 this.setState({
                     account:_accounts[0],
@@ -122,7 +124,7 @@ class App extends React.Component<any,State> {
                 })
             }
         }
-
+        message.info("t4");
         return new Promise(resolve => {
             resolve(ret)
         })
@@ -397,9 +399,11 @@ class App extends React.Component<any,State> {
     showAccountSelect = ()=>{
         const {visible} = this.state;
         this.getAccountList().then(()=>{
+            message.info("t5");
             visible.account = true;
             this.setState({visible:visible})
         }).catch(e=>{
+            message.error("t5e");
             const err = typeof e=="string"?e:e.message;
             message.error(err);
         })
