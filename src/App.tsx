@@ -90,11 +90,13 @@ class App extends React.Component<any,State> {
 
     async getAccountList (){
         const _accounts:Array<Account> = await service.accountList();
+        message.info(_accounts.length);
         const pk:any = localStorage.getItem("actPK")
         let ret:Account;
         if(pk){
             const act:Account = await service.accountDetail(pk)
             if(act && act.mainPKr){
+                message.info(act.mainPKr);
                 ret = act;
                 this.setState({
                     account:act,
@@ -104,6 +106,7 @@ class App extends React.Component<any,State> {
                 localStorage.removeItem("actPK");
                 if(_accounts && _accounts.length>0){
                     ret = _accounts[0];
+                    localStorage.setItem("actPK",_accounts[0].pk);
                     this.setState({
                         account:_accounts[0],
                         accounts:_accounts
@@ -119,6 +122,7 @@ class App extends React.Component<any,State> {
                 })
             }
         }
+
         return new Promise(resolve => {
             resolve(ret)
         })
