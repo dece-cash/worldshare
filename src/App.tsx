@@ -395,6 +395,9 @@ class App extends React.Component<any,State> {
         this.getAccountList().then(()=>{
             visible.account = true;
             this.setState({visible:visible})
+        }).catch(e=>{
+            const err = typeof e=="string"?e:e.message;
+            message.error(err);
         })
     }
 
