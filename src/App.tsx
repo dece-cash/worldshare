@@ -94,11 +94,22 @@ class App extends React.Component<any,State> {
         let ret:Account;
         if(pk){
             const act:Account = await service.accountDetail(pk)
-            ret = act;
-            this.setState({
-                account:act,
-                accounts:_accounts
-            })
+            if(act && act.mainPKr){
+                ret = act;
+                this.setState({
+                    account:act,
+                    accounts:_accounts
+                })
+            }else{
+                localStorage.removeItem("actPK");
+                if(_accounts && _accounts.length>0){
+                    ret = _accounts[0];
+                    this.setState({
+                        account:_accounts[0],
+                        accounts:_accounts
+                    })
+                }
+            }
         }else{
             if(_accounts && _accounts.length>0){
                 ret = _accounts[0];
