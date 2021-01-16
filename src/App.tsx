@@ -89,55 +89,59 @@ class App extends React.Component<any,State> {
     }
 
     async getAccountList (){
-        const _accounts:Array<Account> = await service.accountList();
-        message.info(_accounts.length);
-        const pk:any = localStorage.getItem("actPK")
-        let ret:Account;
-        message.info(pk);
-        // if(pk){
-        //     const act:Account = await service.accountDetail(pk)
-        //     message.info(act.mainPKr);
-        //     if(act && act.mainPKr){
-        //         message.info("t1");
-        //         ret = act;
-        //         this.setState({
-        //             account:act,
-        //             accounts:_accounts
-        //         })
-        //     }else{
-        //         message.info("t2");
-        //         localStorage.removeItem("actPK");
-        //         if(_accounts && _accounts.length>0){
-        //             ret = _accounts[0];
-        //             localStorage.setItem("actPK",_accounts[0].pk);
-        //             this.setState({
-        //                 account:_accounts[0],
-        //                 accounts:_accounts
-        //             })
-        //         }
-        //     }
-        // }else{
-        //     if(_accounts && _accounts.length>0){
-        //         message.info("t3");
-        //         ret = _accounts[0];
-        //         this.setState({
-        //             account:_accounts[0],
-        //             accounts:_accounts
-        //         })
-        //     }
-        // }
-        if(_accounts && _accounts.length>0){
-            message.info("t3");
-            ret = _accounts[0];
-            this.setState({
-                account:_accounts[0],
-                accounts:_accounts
+        try{
+            const _accounts:Array<Account> = await service.accountList();
+            message.info(_accounts.length);
+            const pk:any = localStorage.getItem("actPK")
+            let ret:Account;
+            message.info(pk);
+            // if(pk){
+            //     const act:Account = await service.accountDetail(pk)
+            //     message.info(act.mainPKr);
+            //     if(act && act.mainPKr){
+            //         message.info("t1");
+            //         ret = act;
+            //         this.setState({
+            //             account:act,
+            //             accounts:_accounts
+            //         })
+            //     }else{
+            //         message.info("t2");
+            //         localStorage.removeItem("actPK");
+            //         if(_accounts && _accounts.length>0){
+            //             ret = _accounts[0];
+            //             localStorage.setItem("actPK",_accounts[0].pk);
+            //             this.setState({
+            //                 account:_accounts[0],
+            //                 accounts:_accounts
+            //             })
+            //         }
+            //     }
+            // }else{
+            //     if(_accounts && _accounts.length>0){
+            //         message.info("t3");
+            //         ret = _accounts[0];
+            //         this.setState({
+            //             account:_accounts[0],
+            //             accounts:_accounts
+            //         })
+            //     }
+            // }
+            if(_accounts && _accounts.length>0){
+                message.info("t3");
+                ret = _accounts[0];
+                this.setState({
+                    account:_accounts[0],
+                    accounts:_accounts
+                })
+            }
+            message.info("t4");
+            return new Promise(resolve => {
+                Promise.resolve(ret)
             })
+        }catch (e){
+            return Promise.reject(e)
         }
-        message.info("t4");
-        return new Promise(resolve => {
-            resolve(ret)
-        })
     }
 
     getBalance = (cy:string) =>{
