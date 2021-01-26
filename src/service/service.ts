@@ -101,7 +101,6 @@ class Service {
             author: "dece",
             url: window.location.origin+window.location.pathname,
             logo: window.location.origin+window.location.pathname +"images/logo.png",
-
             barColor:"#36519d",
             navColor:"#36519d",
             barMode:"dark",
@@ -121,7 +120,6 @@ class Service {
                             i18n.changeLanguage(data.language).then(() => {
                             });
                         }
-                        resolve()
                     })
                 }
             })

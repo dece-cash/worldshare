@@ -41,5 +41,9 @@
   "type": "유형",
   "block": "블록 번호",
   "actualProfit": "실질적 수익",
-  "expectedProfit": "기대수익률"
+  "expectedProfit": "기대수익률",
+  "Selectaccount": "계정 선택",
+  "Localaccount": "로컬 계정",
+  "BankAccount": "은행 계좌",
+  "PleaseregisterKYCfirst":"먼저 KYC를 등록하세요"
 }

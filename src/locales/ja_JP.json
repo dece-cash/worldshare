@@ -41,5 +41,9 @@
   "type": "タイプ",
   "block": "ブロック番号",
   "actualProfit": "実収益",
-  "expectedProfit": "期待収益"
+  "expectedProfit": "期待収益",
+  "Selectaccount": "アカウントを選択",
+  "Localaccount": "ローカルアカウント",
+  "BankAccount": "銀行口座",
+  "PleaseregisterKYCfirst":"最初にKYCを登録してください"
 }

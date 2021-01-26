@@ -41,6 +41,10 @@
   "type": "类型",
   "block": "块号",
   "actualProfit": "实际收益",
-  "expectedProfit": "理论收益"
+  "expectedProfit": "理论收益",
+  "Selectaccount": "选择账户",
+  "Localaccount": "本地账户",
+  "BankAccount": "银行账户",
+  "PleaseregisterKYCfirst":"请先注册KYC"
 
 }

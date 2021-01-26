@@ -41,5 +41,9 @@
   "type": "TYPE",
   "block": "BLOCK",
   "actualProfit": "ACTUAL PROFIT",
-  "expectedProfit": "EXPECTED PROFIT"
+  "expectedProfit": "EXPECTED PROFIT",
+  "Selectaccount": "Select Account",
+  "Localaccount": "Local Account",
+  "BankAccount": "Bank Account",
+  "PleaseregisterKYCfirst":"Please Register KYC First"
 }
