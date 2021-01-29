@@ -174,7 +174,7 @@ class App extends React.Component<any, State> {
                             }
                         })
                     }).catch(e => {
-                        message.error(e)
+                        message.error(JSON.stringify([e, 1]))
                     })
                 } else {
                     message.error(`${i18n.t("PleaseregisterKYCfirst")}!`)
@@ -197,7 +197,7 @@ class App extends React.Component<any, State> {
                     }
                 })
             }).catch(e => {
-                message.error(e)
+                message.error(JSON.stringify([e,2]))
             })
         }
     }
