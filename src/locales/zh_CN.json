@@ -7,7 +7,7 @@
   "idB": "ID B",
   "deposit": "充值",
   "package": "PACKAGE",
-  "level": "LEVEL",
+  "level": "HASH",
   "view": "查看",
   "viewPackage": "查看PACKAGE",
   "buy": "购买",
@@ -30,8 +30,7 @@
   "necessary": "预计",
   "available": "可用",
   "myPackage": "我的PACKAGE",
-
-  "overflow":"溢出收益",
+  "overflow": "溢出收益",
   "avatarList": "分身列表",
   "generation1List": "一代推荐人列表",
   "listOfProfit": "收益列表",
@@ -45,6 +44,5 @@
   "Selectaccount": "选择账户",
   "Localaccount": "本地账户",
   "BankAccount": "银行账户",
-  "PleaseregisterKYCfirst":"请先注册KYC"
-
+  "PleaseregisterKYCfirst": "请先注册KYC"
 }

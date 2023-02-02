@@ -7,7 +7,7 @@
   "idB": "ID B",
   "deposit": "DEPOSIT",
   "package": "PACKAGE",
-  "level": "LEVEL",
+  "level": "HASH",
   "view": "VIEW",
   "viewPackage": "VIEW PACKAGE",
   "buy": "BUY",
